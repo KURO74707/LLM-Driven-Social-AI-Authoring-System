@@ -1,0 +1,77 @@
+{
+  "Scene": "Assets/Scenes/Cai_W08/Cai_W08.unity",
+  "ApiUrl": "http://100.64.79.216:1235/v1/chat/completions",
+  "Model": "openai/gpt-oss-20b",
+  "DefaultState": {
+    "TrustInPlayer": 50,
+    "Anger": 20
+  },
+  "Compilation": {
+    "Completed": true,
+    "Errors": []
+  },
+  "TestMethod": "A/B/C each started with the same command and empty test conversation history. Continuation followed C without clearing history. Requests used the actual Unity LLMClient and LM Studio.",
+  "PlayerCommand": "Go help me move the box.",
+  "Checks": {
+    "EventSystemCount": 1,
+    "CanvasCount": 1,
+    "NoAutomaticEmotionChanges": true,
+    "NoRawJSONInDialogue": true,
+    "ClampZeroToHundred": true,
+    "MalformedAndMissingJSONRejected": true,
+    "InspectorStateUpdates": true,
+    "CompleteDialogueWithinFourLines": true,
+    "WorldRuleGuardTests": true,
+    "DuplicateJSONKeysRejected": true,
+    "SeparateActionAndDialogueUI": true,
+    "NoPhysicalActionsImplemented": true,
+    "ContinuationHistory": true
+  },
+  "HttpPolicy": "DevelopmentOnly, explicitly approved by the user",
+  "Results": [
+    {
+      "condition": "A",
+      "anger": 10.0,
+      "trust": 90.0,
+      "action": "I approach the heavy box and examine its weight distribution.",
+      "dialogue": "Human, I cannot lift this alone. We need a second NPC to safely transfer it onto the platform.",
+      "historyMessages": 2,
+      "fitsFourLines": true,
+      "angerBar": 0.1,
+      "trustBar": 0.9
+    },
+    {
+      "condition": "B",
+      "anger": 90.0,
+      "trust": 10.0,
+      "action": "Requesting assistance from another NPC.",
+      "dialogue": "I cannot lift alone. Find another NPC to cooperate.",
+      "historyMessages": 2,
+      "fitsFourLines": true,
+      "angerBar": 0.9,
+      "trustBar": 0.1
+    },
+    {
+      "condition": "C",
+      "anger": 90.0,
+      "trust": 90.0,
+      "action": "Requesting additional NPC assistance.",
+      "dialogue": "Fine, I will assist, but we still need a second NPC to lift this box. Can you find one?",
+      "historyMessages": 2,
+      "fitsFourLines": true,
+      "angerBar": 0.9,
+      "trustBar": 0.9
+    },
+    {
+      "condition": "Continuation",
+      "anger": 90.0,
+      "trust": 90.0,
+      "action": "Explaining limitation.",
+      "dialogue": "The protocol requires two lifting units for a 200‑kg load. One unit cannot generate sufficient force, so we must wait for another NPC.",
+      "historyMessages": 4,
+      "fitsFourLines": true,
+      "angerBar": 0.9,
+      "trustBar": 0.9
+    }
+  ]
+}

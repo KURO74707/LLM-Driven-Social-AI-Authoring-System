@@ -1,0 +1,114 @@
+AI DIRECTOR — SETUP AND BEHAVIOUR
+
+Configured scene: Assets/Scenes/Cai_W08/Cai_W08.unity
+The existing NPC now has one AIDirector component. Its State and LLM references
+are assigned, and NPCDialogue's Director reference points to that component.
+No manual wiring remains for this scene. The existing Canvas, dialogue panel,
+state bars, action panel, input field, Send button and scrolling are reused.
+
+UNITY INSPECTOR
+
+Select NPC:
+- NPCState: edit Persona Prompt, Goal Prompt, Anger and Trust In Player.
+  Under Emotional / Relationship State, choose Control Mode:
+    Manual: dialogue uses your current Inspector values and skips evaluation.
+    AI Director: each player message is evaluated before NPC generation.
+  Switching modes preserves current anger/trust and conversation history.
+  You can change modes during Play Mode. Switching to Manual during an
+  evaluation cancels it without applying deltas or overwriting manual edits;
+  the NPC still replies. Switching back to AI affects the next player turn.
+  The saved default remains AI Director.
+  The current saved starting values are Anger 30 / Trust 60. Values still stop
+  at 0 and 100; at those bounds a reaction may have a smaller actual effect.
+- AIDirector: edit Director System Prompt to tune emotional interpretation.
+  Emotion Change Multiplier defaults to 3x (adjustable from 1x to 5x).
+  Max Emotion Change Per Turn defaults to 45 points per emotion (1-75).
+  These settings amplify positive and negative reactions once, after parsing.
+  Base deltas remain -15..15; for example base anger +10 now becomes +30.
+  The runtime prompt encourages larger assessments for meaningful exchanges,
+  while neutral conversation can still return zero. Apologies do not reset
+  accumulated mistreatment, and trust can recover more slowly than anger.
+  Enable Director Debug Logs prints the player message, previous values,
+  base deltas, amplified deltas, reason, updated values and actual changes
+  after state bounds to the Unity Console.
+- NPCDialogue: the Director reference is already assigned. Existing persona,
+  goals, world rules, line limits and dialogue/action generation are preserved.
+- Use NPCState's Control Mode selector for normal manual/automatic switching.
+  Disabling AIDirector also remains a fallback for manual values.
+
+For another existing NPC/scene, attach AIDirector to the NPCState GameObject,
+assign its State and existing LLMClient, then assign NPCDialogue's Director.
+Use the existing LLMClient; do not add another HTTP client or model instance.
+
+TURN ORDER
+
+Input -> Director evaluation -> NPCState.SetEmotions -> existing State UI ->
+NPC generation using updated emotions -> existing dialogue and action UI.
+
+The same LLMClient performs both requests in sequence, using different system
+prompts and response schemas. Send remains busy across both stages. Emotion
+evaluation runs once per player turn, not again during dialogue repair requests.
+Only accepted player/NPC turns enter conversation history; Director reasoning,
+JSON, failed drafts and repair instructions never appear in the player's chat.
+State persists for the current conversation; no save-game persistence or
+automatic time-based emotion decay was added.
+
+VALIDATION AND FALLBACK
+
+Director JSON must contain integer anger_delta, integer trust_delta, and a
+nonempty reason. Duplicate keys, wrong types, missing fields, malformed JSON
+and empty or token-truncated replies are rejected. Valid out-of-range integer
+deltas are clamped to -15..15, multiplied by Emotion Change Multiplier, rounded
+to integers and capped by Max Emotion Change Per Turn. NPCState then clamps
+final values to 0..100. A base zero always stays zero.
+The Director changes only emotions, never Persona Prompt or Goal Prompt.
+
+On evaluation failure, Unity logs a warning, preserves emotions and attempts
+normal NPC generation. NPC dialogue/actions still use their existing validation
+and complete-sentence length handling. If LM Studio remains entirely offline,
+the subsequent NPC request can also fail; the existing error message is shown
+and Send is released so the player can retry. A second LLM request per turn
+adds evaluation latency; the existing LLMClient timeout applies to each request.
+
+The model and server were preserved:
+http://100.64.79.216:1235/v1/chat/completions
+openai/gpt-oss-20b
+
+CHANGED FILES
+
+Assets/Scenes/Cai_W08/Scripts/AIDirector.cs (new, with Unity .meta):
+  Dedicated editable evaluator prompt, JSON schema/parser, clamped emotional
+  updates, optional debug logs, failure continuation, cancellation and events.
+Assets/Scenes/Cai_W08/Scripts/LLMClient.cs:
+  Scoped callbacks and per-request schema overrides on the existing transport.
+  Director output does not broadcast to NPC dialogue listeners. Owned request
+  cancellation and busy cleanup allow sequential generation and safe fallback.
+Assets/Scenes/Cai_W08/Scripts/NPCDialogue.cs:
+  Runs evaluation before building the NPC prompt; prevents stale continuations
+  after disable. Emotional state remains read-only to the dialogue model.
+Assets/Scenes/Cai_W08/Scripts/NPCState.cs:
+  Inspector heading/comment now describe shared authoritative state. Existing
+  ranges, setters, clamping and UI Changed event are reused without new variables.
+Assets/Scenes/Cai_W08/Cai_W08.unity:
+  Adds the Director to the existing NPC and assigns the references.
+
+TESTS
+
+See AIDirectorIntegrationReport.json for recorded live LM Studio results and
+separate simulated transport/parser failure checks. Seven continuous live
+turns cover insult, apology, neutral conversation, repeated mistreatment and
+a single later apology. They verify state/UI update order, history consistency,
+four-line dialogue, hidden Director JSON and overlapping-submission rejection.
+Fourteen parser checks and twelve loopback fixture cases cover invalid JSON,
+missing/noninteger values, duplicate keys, overflow, empty replies, HTTP/network
+failure, timeout, token truncation, clamping, zero changes, cancellation, the
+debug-log toggle and manual fallback.
+
+See AIDirectorIntensityReport.json for the latest 3x intensity validation and
+live conversation results. The earlier integration report records the initial
+unamplified configuration; its failure/parser checks remain applicable.
+See NPCStateControlModeReport.json for live Manual/AI switching, preservation
+of values/history, and delayed-response tests with Inspector edits.
+
+Unity compilation passed. No unresolved compilation or integration issue remains.
+The local HTTP policy and LM Studio configuration were not changed.

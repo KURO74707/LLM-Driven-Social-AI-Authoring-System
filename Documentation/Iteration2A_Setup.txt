@@ -1,0 +1,154 @@
+ITERATION 2A — ALEX / SAM TEAM COMMUNICATION
+
+NEW SCENE
+Assets/Scenes/Cai_W08/NPC_Iteration2A.unity
+
+Open this scene and enter Play Mode. All references are assigned; no manual
+Inspector wiring is required. One existing Canvas, EventSystem, input field,
+Send button and scrollable conversation panel are reused. The original scene
+Assets/Scenes/Cai_W08/Cai_W08.unity is preserved as the single-NPC version.
+
+SCENE OBJECTS AND INSPECTOR
+
+NPC_Alex / NPC_Sam:
+- NPCState owns that character's Persona Prompt, Goal Prompt, Anger,
+  Trust In Player and Trust In Teammate. Each is a different component instance.
+- Alex starts at 30 anger / 60 Commander trust / 30 trust in Sam.
+- Sam starts at 10 anger / 60 Commander trust / 45 trust in Alex.
+- Control Mode selects Manual or AI Director per NPC. Manual values remain
+  editable and are not overwritten by team evaluations. In mixed mode the
+  Director still hears both characters, but only updates the automatic one.
+- TeamMember supplies stable ID, display name, chat color and teammate link.
+- NPCDialogue is set to Externally Managed Conversation. Its existing parser,
+  length measurement, response repair and action events are reused. It does
+  not subscribe separately to shared input, run a legacy Director, or keep
+  another private group transcript. Its single-NPC mode is unchanged.
+
+TeamConversation:
+- ConversationManager holds Alex, Sam, the shared DialogueUI, existing LLMClient
+  and TeamAIDirector references. It owns the only canonical group history.
+- Context Message Limit defaults to 36. Only LLM context is windowed; visible
+  and canonical history remain complete for the current Play session.
+- TeamAIDirector exposes Director System Prompt and Enable Director Debug Logs.
+  Both NPCs are evaluated once per Commander turn, using their independent
+  personalities, goals, anger and both directional trust values.
+- LLM remains the existing LM Studio client/model. No second HTTP client or
+  model loader was added. Requests run strictly in sequence.
+
+ROUTING
+
+No mention -> Alex then Sam.
+@Alex -> Alex only. @Sam -> Sam only.
+Both mentioned -> Alex then Sam, regardless of mention order.
+Matching is case-insensitive. @Alexandra and @Alex_foo do not match @Alex.
+Repeated mentions do not create duplicate replies. Names without @ are group
+messages. Email-like embedded @ names are not treated as recipient mentions.
+Unknown mentions are logged and shown as a status warning. Known mentions
+still route normally; if none match, both teammates receive the message.
+Every NPC can hear all shared conversation, including messages addressed to
+the other NPC. There are no private channels or autonomous interruptions.
+
+HISTORY AND TURN ORDER
+
+ConversationMessage contains sequence, speaker_id, speaker_name, content and
+message_type. IDs are player/alex/sam; display names are Commander/Alex/Sam.
+The original player text, including mentions, is stored once. NPC accepted
+dialogue is stored once. Visible TMP formatting is separate from this data.
+
+Commander input -> append once -> route -> one team Director evaluation ->
+update both states/UI -> selected NPC replies sequentially -> append accepted
+dialogue -> next selected NPC sees updated history -> release Send.
+
+Sam sees Alex's accepted reply in the same turn when both respond. NPC request
+formatting gives the current Commander entry explicitly and excludes it from
+the other context entries, so it occurs only once per request. Context entries
+carry sequence and speaker IDs; NPC remarks are never treated as player orders.
+No Director JSON, repair drafts or repair instructions enter shared history.
+
+STATE AND DIRECTOR LIMITS
+
+Team JSON uses npc_updates with exactly one alex and one sam object containing
+anger_delta, trust_player_delta, trust_teammate_delta and a short reason.
+Validation completes for BOTH entries before applying either. Duplicate IDs,
+unknown IDs, missing fields, noninteger values and malformed JSON are rejected.
+Every team delta is capped to -15..15 as requested; final values are 0..100.
+Iteration 1's configurable 3x intensity is preserved for its original Director;
+it is not applied to the new team's explicitly capped deltas.
+
+Trust is directional: changing Alex's Trust In Teammate changes Alex -> Sam
+only. NPCState's existing Changed event updates its own UI bars immediately,
+including Play Mode Inspector edits. No automatic emotion decay or save-game
+persistence was added. The Director does not change identity or goals.
+
+UI AND TEXT ACTIONS
+
+Top-left has independent Alex and Sam state sections, each with three bars.
+Top-right has independent latest actions, initially Idle. An Alex update never
+replaces Sam's action. Commander/Alex/Sam have distinct speaker colors. Literal
+player/model markup is escaped. Group entries use compact single-line spacing.
+The original ScrollRect, scrollbar, wrapping and follow-near-bottom behavior
+are preserved; scrolling upward keeps the current reading position.
+Dialogue remains complete and limited to four measured TMP lines, including
+the actual speaker prefix. Too-long/invalid responses get at most two internal
+repairs, with no substring clipping. Only one accepted reply per selected NPC
+is committed; at most two NPC replies are produced per Commander turn.
+
+The new scene uses a 1280x720 CanvasScaler reference and widens its camera FOV
+to 40 to frame both reused character models. Colors and general panel styling
+are retained. These scene-only changes do not alter the original scene's
+camera or Canvas settings. Target layout is landscape, 1280x720 or equivalent.
+Existing robot character visuals are reused as placeholders for Alex and Sam.
+
+ERROR RECOVERY
+
+Director failure keeps both emotional states unchanged and continues dialogue.
+An NPC failure is logged; its previous action and successful messages remain.
+The other selected NPC still gets its own turn. No successful reply is retried.
+Missing NPC references are skipped with a warning. Entire server failure still
+releases Send and shows the errors. Disabling the manager cancels owned pending
+requests, invalidates old continuations and releases the UI.
+
+This remains text-only preparation. The box never changes physical position,
+and successful transport/completion claims are rejected. There is no movement,
+animation control, box physics, mission system, private chat, extra teammate,
+NPC-to-NPC interruption loop, or autonomous planner.
+
+CREATED CODE
+Assets/Scenes/Cai_W08/Scripts/Iteration2A/ConversationManager.cs
+  Routing, central history, sequential turn processing, partial-failure recovery.
+Assets/Scenes/Cai_W08/Scripts/Iteration2A/TeamAIDirector.cs
+  Multi-NPC evaluator adapter on the existing client, strict atomic parsing,
+  directional state updates and per-NPC debug logs.
+Assets/Scenes/Cai_W08/Scripts/Iteration2A/TeamMember.cs
+  Stable identities, independent-state prompt context, ConversationMessage data
+  and preparation-only narrative validation.
+
+BACKWARD-COMPATIBLE SHARED EXTENSIONS
+NPCState.cs: teammate trust and a three-value SetEmotions overload. The original
+  two-value setter preserves teammate trust and remains available.
+NPCStateUI.cs: optional teammate trust references; null in the old scene.
+DialogueUI.cs: optional group presentation and speaker-aware line measurement;
+  original public methods and default You/NPC single-chat behavior remain.
+NPCDialogue.cs: optional externally managed mode and scoped group generation;
+  existing single-NPC dialogue, Director, memory and error flow remain default.
+LLMClient.cs, AIDirector.cs and NPCActionUI.cs were reused without modification.
+
+PERFORCE
+
+Dedicated pending changelist: 121537. No submit, revert, sync or force unlock.
+The original scene and its .meta were not opened for edit. Before-work hashes
+are used to verify that both remain unchanged. Existing shared script .meta
+GUIDs are retained; new assets have their own Unity-generated .meta files.
+
+At task start there were no files opened in this workspace. Several scene/code
+files were one revision behind head and already open in quehu's workspace.
+The four shared scripts were checked out at their current local revisions;
+Perforce reports that they must sync/resolve newer revisions before a future
+submission. This was deliberately not automated to avoid overwriting local or
+concurrent work. ProjectSettings.asset is exclusively open elsewhere; its
+previously approved local DevelopmentOnly HTTP setting and prior untracked
+documentation were preserved outside this changelist.
+
+See Iteration2A_TestReport.json for actual live tests, controlled failure tests,
+Iteration 1 regression, original scene hash verification and the final files
+opened for edit/add in changelist 121537.

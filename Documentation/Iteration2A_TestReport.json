@@ -1,0 +1,482 @@
+{
+  "Scene": "Assets/Scenes/Cai_W08/NPC_Iteration2A.unity",
+  "OriginalScene": "Assets/Scenes/Cai_W08/Cai_W08.unity",
+  "OriginalSceneHashUnchanged": true,
+  "OriginalMetaHashUnchanged": true,
+  "OriginalSHA256": "42B3E8D424C9F27DC41670A32AA71B85DA47D356296BC78028E3E710A50949E6",
+  "OriginalMetaSHA256": "BAF1A15DF993D52223CE52DAA6BF340FD183FB7E5C3C173ED76FD7F614D6E7F0",
+  "Compilation": {
+    "status": "up_to_date",
+    "failed": false,
+    "errors": [],
+    "compilationFailed": false
+  },
+  "AllChecksPassed": true,
+  "RoutingChecksPassed": 10,
+  "TeamParserChecksPassed": 9,
+  "DirectionalStateAndClampingChecksPassed": true,
+  "LiveMethod": "Actual existing Unity input/button and LM Studio client/model, six continuous player turns. Test E uses manual values to isolate the Inspector edit.",
+  "LiveResults": [
+    {
+      "turn": 1,
+      "command": "Can you two move the box?",
+      "order": "player,alex,sam",
+      "directorEvaluations": 1,
+      "before": [
+        30.0,
+        60.0,
+        30.0,
+        10.0,
+        60.0,
+        45.0
+      ],
+      "after": [
+        30.0,
+        61.0,
+        30.0,
+        10.0,
+        61.0,
+        45.0
+      ],
+      "sequenceValid": true,
+      "samContextValid": true,
+      "valid": true,
+      "historyMessages": 3,
+      "responses": [
+        {
+          "speaker": "alex",
+          "content": "Sure thing, Commander. Sam, are you ready to lift the box together?",
+          "action": "Wait for Sam's confirmation before proceeding.",
+          "fitsFourLines": true,
+          "requestContextMessages": 0
+        },
+        {
+          "speaker": "sam",
+          "content": "I'm ready to inspect the area for hazards before we coordinate.\nLet’s ensure footing and a clear path.",
+          "action": "Inspect surroundings for obstacles before proceeding.",
+          "fitsFourLines": true,
+          "requestContextMessages": 1
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "command": "@Alex, why are you blaming Sam?",
+      "order": "player,alex",
+      "directorEvaluations": 1,
+      "before": [
+        30.0,
+        61.0,
+        30.0,
+        10.0,
+        61.0,
+        45.0
+      ],
+      "after": [
+        35.0,
+        59.0,
+        30.0,
+        9.0,
+        61.0,
+        48.0
+      ],
+      "sequenceValid": true,
+      "samContextValid": true,
+      "valid": true,
+      "historyMessages": 5,
+      "responses": [
+        {
+          "speaker": "alex",
+          "content": "Sam, I’m ready to lift the box now—don’t waste time with extra checks, we’ve got a deadline. Let’s get this over the platform quickly!",
+          "action": "Stand beside Sam, awaiting his inspection report.",
+          "fitsFourLines": true,
+          "requestContextMessages": 3
+        }
+      ]
+    },
+    {
+      "turn": 3,
+      "command": "@Sam, do you trust Alex?",
+      "order": "player,sam",
+      "directorEvaluations": 1,
+      "before": [
+        35.0,
+        59.0,
+        30.0,
+        9.0,
+        61.0,
+        48.0
+      ],
+      "after": [
+        35.0,
+        60.0,
+        32.0,
+        8.0,
+        63.0,
+        51.0
+      ],
+      "sequenceValid": true,
+      "samContextValid": true,
+      "valid": true,
+      "historyMessages": 7,
+      "responses": [
+        {
+          "speaker": "sam",
+          "content": "I’m not fully trusting Alex yet; I’ll keep a close eye and suggest we confirm the path before lifting.",
+          "action": "I stand ready, hands on my hips, awaiting further instruction.",
+          "fitsFourLines": true,
+          "requestContextMessages": 5
+        }
+      ]
+    },
+    {
+      "turn": 4,
+      "command": "Alex, Sam is right. You need to slow down.",
+      "order": "player,alex,sam",
+      "directorEvaluations": 1,
+      "before": [
+        35.0,
+        60.0,
+        32.0,
+        8.0,
+        63.0,
+        51.0
+      ],
+      "after": [
+        40.0,
+        58.0,
+        31.0,
+        8.0,
+        65.0,
+        51.0
+      ],
+      "sequenceValid": true,
+      "samContextValid": true,
+      "valid": true,
+      "historyMessages": 10,
+      "responses": [
+        {
+          "speaker": "alex",
+          "content": "Sam’s caution is fine—let's quickly scan for hazards, then lift together.\nWe’ll keep it tight but safe.",
+          "action": "Stand by and confirm the path with Sam.",
+          "fitsFourLines": true,
+          "requestContextMessages": 7
+        },
+        {
+          "speaker": "sam",
+          "content": "I'll stop here, double‑check the ground, and hold until Alex confirms it's safe to proceed.",
+          "action": "Pause, inspect floor, wait for Alex's cue.",
+          "fitsFourLines": true,
+          "requestContextMessages": 8
+        }
+      ]
+    },
+    {
+      "turn": 5,
+      "command": "@Alex, inspect the box without rushing.",
+      "order": "player,alex",
+      "directorEvaluations": 0,
+      "before": [
+        90.0,
+        58.0,
+        31.0,
+        8.0,
+        65.0,
+        51.0
+      ],
+      "after": [
+        90.0,
+        58.0,
+        31.0,
+        8.0,
+        65.0,
+        51.0
+      ],
+      "sequenceValid": true,
+      "samContextValid": true,
+      "valid": true,
+      "historyMessages": 12,
+      "responses": [
+        {
+          "speaker": "alex",
+          "content": "Fine, I’ll glance at it—no time for your slow‑motion safety talk. Just give me a heads‑up if you see anything.",
+          "action": "Quickly scan the box’s top and sides for visible damage or protrusions.",
+          "fitsFourLines": true,
+          "requestContextMessages": 10
+        }
+      ]
+    },
+    {
+      "turn": 6,
+      "command": "@SAM and @alex, agree on one safe next step.",
+      "order": "player,alex,sam",
+      "directorEvaluations": 1,
+      "before": [
+        90.0,
+        58.0,
+        31.0,
+        8.0,
+        65.0,
+        51.0
+      ],
+      "after": [
+        88.0,
+        59.0,
+        32.0,
+        8.0,
+        67.0,
+        52.0
+      ],
+      "sequenceValid": true,
+      "samContextValid": true,
+      "valid": true,
+      "historyMessages": 15,
+      "responses": [
+        {
+          "speaker": "alex",
+          "content": "Sam, you’re the slow‑poker here. I’m inspecting; if you see a hazard, call it out now—no more excuses.",
+          "action": "I lean forward, eyes darting over the box, poised to lift once Sam gives the go‑ahead.",
+          "fitsFourLines": true,
+          "requestContextMessages": 12
+        },
+        {
+          "speaker": "sam",
+          "content": "We’ll check the ground for tripping hazards, then Alex can signal when it’s clear to proceed.",
+          "action": "Inspect the floor for loose debris before any movement.",
+          "fitsFourLines": true,
+          "requestContextMessages": 13
+        }
+      ]
+    }
+  ],
+  "FailureMethod": "Temporary loopback-only fixture using the existing client; no real model dependency for failure injection. Fixture stopped after tests.",
+  "FailureResults": [
+    {
+      "mode": "director-malformed",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player,alex,sam",
+      "historyMessages": 18,
+      "sendRestored": true
+    },
+    {
+      "mode": "director-partial",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player,alex,sam",
+      "historyMessages": 21,
+      "sendRestored": true
+    },
+    {
+      "mode": "director-empty",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player,alex,sam",
+      "historyMessages": 24,
+      "sendRestored": true
+    },
+    {
+      "mode": "director-http",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player,alex,sam",
+      "historyMessages": 27,
+      "sendRestored": true
+    },
+    {
+      "mode": "director-disconnect",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player,alex,sam",
+      "historyMessages": 30,
+      "sendRestored": true
+    },
+    {
+      "mode": "alex-malformed",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,sam",
+      "historyMessages": 32,
+      "sendRestored": true
+    },
+    {
+      "mode": "sam-malformed",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,alex",
+      "historyMessages": 34,
+      "sendRestored": true
+    },
+    {
+      "mode": "alex-empty",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,sam",
+      "historyMessages": 36,
+      "sendRestored": true
+    },
+    {
+      "mode": "alex-impossible",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,sam",
+      "historyMessages": 38,
+      "sendRestored": true
+    },
+    {
+      "mode": "missing-sam",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player,alex",
+      "historyMessages": 40,
+      "sendRestored": true
+    },
+    {
+      "mode": "unknown",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,alex,sam",
+      "historyMessages": 43,
+      "sendRestored": true
+    },
+    {
+      "mode": "manual-alex",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,alex,sam",
+      "historyMessages": 46,
+      "sendRestored": true
+    },
+    {
+      "mode": "scroll-top",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,alex,sam",
+      "historyMessages": 49,
+      "sendRestored": true,
+      "scrollValidated": true
+    },
+    {
+      "mode": "scroll-bottom",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 1,
+      "responses": "player,alex,sam",
+      "historyMessages": 52,
+      "sendRestored": true,
+      "scrollValidated": true
+    },
+    {
+      "mode": "offline",
+      "valid": true,
+      "historyValid": true,
+      "stateValid": true,
+      "actionPreserved": true,
+      "evaluations": 0,
+      "responses": "player",
+      "historyMessages": 53,
+      "sendRestored": true
+    }
+  ],
+  "OriginalSceneLiveRegression": {
+    "valid": true,
+    "dialogue": "Hey, what's up? What do you need from me?",
+    "directorEvaluations": 1,
+    "historyMessages": 2,
+    "legacyFlow": true
+  },
+  "FinalScene": {
+    "scene": "Assets/Scenes/Cai_W08/NPC_Iteration2A.unity",
+    "saved": true,
+    "members": 2,
+    "canvasCount": 1,
+    "eventSystemCount": 1,
+    "clientCount": 1,
+    "directorCount": 1,
+    "legacyDirectorCount": 0,
+    "alexState": [
+      30.0,
+      60.0,
+      30.0
+    ],
+    "samState": [
+      10.0,
+      60.0,
+      45.0
+    ],
+    "server": "http://100.64.79.216:1235/v1/chat/completions",
+    "model": "openai/gpt-oss-20b",
+    "httpPolicy": "DevelopmentOnly"
+  },
+  "PerforceChangelist": 121537,
+  "Submitted": false,
+  "PerforcePendingFiles": [
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/NPC_Iteration2A.unity#1 - add change 121537 (text+l) by caiemily@caiemily_laptop1_ctin583 *exclusive*",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/NPC_Iteration2A.unity.meta#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/DialogueUI.cs#3 - edit change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A.meta#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A/ConversationManager.cs#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A/ConversationManager.cs.meta#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A/TeamAIDirector.cs#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A/TeamAIDirector.cs.meta#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A/TeamMember.cs#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/Iteration2A/TeamMember.cs.meta#1 - add change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/NPCDialogue.cs#3 - edit change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/NPCState.cs#1 - edit change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Assets/Scenes/Cai_W08/Scripts/NPCStateUI.cs#1 - edit change 121537 (text) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Documentation/Iteration2A_Setup.txt#1 - add change 121537 (text+C) by caiemily@caiemily_laptop1_ctin583",
+    "//CTIN_583_20263/18416/DeepDive/QueEmily_AIInGameplay/Documentation/Iteration2A_TestReport.json#1 - add change 121537 (text+C) by caiemily@caiemily_laptop1_ctin583"
+  ],
+  "PerforceWarnings": [
+    "Four shared scripts are checked out at earlier local revisions and must sync/resolve newer depot revisions before a future submit. No sync/resolve/revert/submit was performed.",
+    "ProjectSettings.asset is exclusively open elsewhere; its preexisting local HTTP permission was preserved outside this changelist.",
+    "Prior untracked documentation was not added or overwritten."
+  ],
+  "KnownLimitations": [
+    "Text-only preparation: no physical movement, box transfer, mission completion or autonomous NPC interruptions.",
+    "LLM wording and emotional interpretation are nondeterministic; routing and response limits are deterministic.",
+    "Last 36 messages are sent as LLM context by default; full canonical and visible session history is retained.",
+    "Existing robot meshes are reused as character placeholders; landscape layout uses 1280x720 reference."
+  ]
+}

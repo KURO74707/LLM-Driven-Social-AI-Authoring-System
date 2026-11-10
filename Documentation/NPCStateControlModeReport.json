@@ -1,0 +1,73 @@
+{
+  "Compilation": {
+    "status": "completed",
+    "failed": false,
+    "errors": [],
+    "compilationFailed": false
+  },
+  "DefaultControlMode": "AI Director",
+  "DirectManualEvaluationBypassPassed": true,
+  "LiveLMStudioTests": [
+    {
+      "mode": "Manual",
+      "evaluations": 0,
+      "anger": 30.0,
+      "trust": 60.0,
+      "valid": true,
+      "historyMessages": 2,
+      "dialogue": "If there's something specific you need me to try, let me know—I'm ready to help where I can.",
+      "action": "I stand firm, shoulders squared.",
+      "fitsFourLines": true
+    },
+    {
+      "mode": "AIDirector",
+      "evaluations": 1,
+      "anger": 60.0,
+      "trust": 45.0,
+      "valid": true,
+      "historyMessages": 4,
+      "dialogue": "If you're asking me to lift it solo, I'm gonna tell you that won't work—I've tried and failed a dozen times.",
+      "action": "I stare at the box, arms crossed.",
+      "fitsFourLines": true
+    }
+  ],
+  "DelayedFixtureTests": [
+    {
+      "test": "PropertySwitchDuringEvaluation",
+      "valid": true,
+      "mode": "Manual",
+      "anger": 40.0,
+      "trust": 70.0,
+      "directorEvaluations": 0,
+      "directorFailures": 0,
+      "historyMessages": 2,
+      "dialogue": "We need another NPC before lifting. I can help examine the box.",
+      "lateReplyIgnored": true
+    },
+    {
+      "test": "InspectorSwitchAndManualEditDuringEvaluation",
+      "valid": true,
+      "mode": "Manual",
+      "anger": 25.0,
+      "trust": 80.0,
+      "directorEvaluations": 0,
+      "directorFailures": 0,
+      "historyMessages": 2,
+      "dialogue": "We need another NPC before lifting. I can help examine the box.",
+      "lateReplyIgnored": true
+    },
+    {
+      "test": "ResumeAIWithoutReset",
+      "valid": true,
+      "mode": "AIDirector",
+      "anger": 40.0,
+      "trust": 71.0,
+      "directorEvaluations": 1,
+      "directorFailures": 0,
+      "historyMessages": 4,
+      "dialogue": "We need another NPC before lifting. I can help examine the box.",
+      "lateReplyIgnored": true
+    }
+  ],
+  "AllChecksPassed": true
+}
