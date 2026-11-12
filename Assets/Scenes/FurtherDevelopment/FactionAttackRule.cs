@@ -45,11 +45,13 @@ namespace FurtherDevelopment.SocialAI
     public sealed class FactionAttackRule
     {
         public bool AllowVerification { get; }
+        public bool Enabled { get; }
         public int MinimumConfidence { get; }
         public int MinimumLoyalty { get; }
 
-        public FactionAttackRule(bool allowVerification, int minimumConfidence, int minimumLoyalty)
+        public FactionAttackRule(bool allowVerification, int minimumConfidence, int minimumLoyalty, bool enabled = true)
         {
+            Enabled = enabled;
             AllowVerification = allowVerification;
             MinimumConfidence = SocialWorld.ClampScore(minimumConfidence);
             MinimumLoyalty = SocialWorld.ClampScore(minimumLoyalty);
@@ -59,6 +61,8 @@ namespace FurtherDevelopment.SocialAI
             VerificationRequest request = null)
         {
             var npc = world.GetNpc(npcId);
+            if (!Enabled)
+                return new ActionRequest(npcId, SocialAction.ContinuePatrol, null, null, "Faction attack rule is disabled.");
             var evidence = npc.Knowledge.Where(item => item.EventId == eventId)
                 .OrderBy(item => item.Acquisition == Acquisition.Reported)
                 .ThenByDescending(item => item.Confidence)

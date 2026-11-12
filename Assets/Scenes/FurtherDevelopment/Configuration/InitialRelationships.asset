@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb375c0207aeb3724ca76ae4b6b2c31, type: 3}
+  m_Name: InitialRelationships
+  m_EditorClassIdentifier:
+  relationships:
+  - observer: {fileID: 11400000, guid: 9388f0afc62e0d8f55cc784c8aaebe1f, type: 2}
+    subject: {fileID: 11400000, guid: 59a4adaf54db2d91a0f9e1f562a5a251, type: 2}
+    trust: 80
+  - observer: {fileID: 11400000, guid: 59a4adaf54db2d91a0f9e1f562a5a251, type: 2}
+    subject: {fileID: 11400000, guid: 9388f0afc62e0d8f55cc784c8aaebe1f, type: 2}
+    trust: 40
